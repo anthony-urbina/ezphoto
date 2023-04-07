@@ -1,7 +1,8 @@
 import { memo } from "react";
+import { PricingPage } from "@/components/pages";
 
 export const Pricing = () => {
-  return <div>pricing page!!</div>;
+  return <PricingPage />;
 };
 
 export default memo(Pricing);
