@@ -8,7 +8,9 @@ export default function App({
 }: AppProps) {
   return (
     <SessionProvider session={session}>
-      <Component {...pageProps} />
+      <div className="px-3 py-5 lg:px-6 lg:py-10">
+        <Component {...pageProps} />
+      </div>
     </SessionProvider>
   );
 }
