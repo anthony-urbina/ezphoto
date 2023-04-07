@@ -13,12 +13,12 @@ export const Header: React.FC = () => {
     if (!session) {
       <button onClick={() => signIn()}>sign in</button>;
     } else {
-      <button onClick={() => signOut()}>sign in</button>;
+      <button onClick={() => signOut()}>sign out</button>;
     }
   };
-
+  console.log("sesh", signIn, status);
   return (
-    <button onClick={() => (session ? signOut : signIn)}>
+    <button onClick={() => (session ? signOut() : signIn())}>
       {session ? "sign out" : "sign in"}
     </button>
   );
