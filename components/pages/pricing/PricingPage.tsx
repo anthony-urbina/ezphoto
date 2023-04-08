@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SelectAPlan, SelectImageTypes } from "@/components/elements";
+import { SelectAPlan, SelectImageTypes, Summary } from "@/components/elements";
 
 export const PricingPage = () => {
   return (
@@ -8,6 +8,9 @@ export const PricingPage = () => {
       <div className="basis-full">
         <SelectAPlan />
         <SelectImageTypes />
+      </div>
+      <div className="basis-full">
+        <Summary />
       </div>
     </>
   );
