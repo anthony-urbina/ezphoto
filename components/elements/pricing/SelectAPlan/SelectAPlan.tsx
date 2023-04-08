@@ -1,13 +1,25 @@
 import { useState } from "react";
 
 export const SelectAPlan = () => {
-  const [isOn, setIsOn] = useState(false);
+  const [isOn, setIsOn] = useState<boolean>(false);
+  const [selectedPlan, setSelectedPlan] = useState<string>("");
 
   const toggleSwitch = () => {
     console.log("switch is:", !isOn);
-
     setIsOn(!isOn);
   };
+
+  const handleSelectPlan = (
+    event: React.MouseEvent<HTMLUListElement, MouseEvent>
+  ) => {
+    console.log(event.target);
+    const target = event.target as HTMLInputElement;
+    const { planId } = target.dataset;
+    if (planId) {
+      setSelectedPlan(planId);
+    }
+  };
+
   return (
     <div>
       <div className="flex items-center justify-between pb-4">
@@ -39,20 +51,29 @@ export const SelectAPlan = () => {
         </div>
       </div>
       <div className="w-full border border-[#c3cbcd] border-r-2">
-        <ul className="cursor-pointer md:flex">
-          <li className="py-2 md:py-6 font-bold md:basis-1/3 hover:bg-[#dce4e4] pl-4">
+        <ul className="cursor-pointer md:flex" onClick={handleSelectPlan}>
+          <li
+            data-plan-id="1"
+            className="py-2 md:py-6 font-bold md:basis-1/3 hover:bg-[#dce4e4] pl-4"
+          >
             PAY AS YOU GO
             <span className="block font-bold text-[#807777]">
               Free of charge
             </span>
           </li>
-          <li className="py-2 md:py-6 font-bold md:basis-1/3 pl-4  hover:bg-[#dce4e4]">
+          <li
+            data-plan-id="2"
+            className="py-2 md:py-6 font-bold md:basis-1/3 pl-4  hover:bg-[#dce4e4]"
+          >
             GROWTH
             <span className="block font-bold text-[#807777]">
               $350 every 6 mo.
             </span>
           </li>
-          <li className="py-2 md:py-6 font-bold md:basis-1/3 pl-4  hover:bg-[#dce4e4]">
+          <li
+            data-plan-id="3"
+            className="py-2 md:py-6 font-bold md:basis-1/3 pl-4  hover:bg-[#dce4e4]"
+          >
             ENTERPRISE
             <span className="block font-bold text-[#807777]">
               $1400 every 6 mo.
