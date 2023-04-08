@@ -10,7 +10,7 @@ export const Summary = () => {
     setIsOn(!isOn);
   };
   return (
-    <div className="pt-8">
+    <div className="pt-8 lg:pt-0">
       <div className="flex items-center justify-between pb-4">
         <h3 className="text-2xl font-bold">SUMMARY</h3>
       </div>
@@ -49,7 +49,7 @@ export const Summary = () => {
             </div>
           </div>
         </div>
-        <div className="border-b border-[#c3cbcd] py-4">
+        <div className="border-b border-[#c3cbcd] py-4 text-[#353535] ">
           <div className="flex justify-between w-full px-4 py-1 ">
             <div className="flex">
               <p className="pr-2">Savings:</p>
@@ -61,10 +61,9 @@ export const Summary = () => {
           </div>
         </div>
         <div className="pt-5 pb-1">
-          <div className="flex justify-between w-full px-4">
-            <div className="flex">
-              <p className="pr-2">Savings:</p>
-              <AiOutlineInfoCircle size={24} color="#ababab" />
+          <div className="flex justify-between w-full px-4 font-bold text-black">
+            <div>
+              <p className="pr-2">TOTAL</p>
             </div>
             <div>
               <p>$0</p>

@@ -9,7 +9,7 @@ export default function App({
 }: AppProps) {
   return (
     <SessionProvider session={session}>
-      <div className="px-3 py-5 lg:px-6 lg:py-10">
+      <div className="px-3 py-5 md:px-6 lg:px-9 lg:py-10">
         <Header />
         <Component {...pageProps} />
       </div>

@@ -11,13 +11,16 @@ export const SelectAPlan = () => {
   return (
     <div>
       <div className="flex items-center justify-between pb-4">
-        <div className=" basis-1/2">
+        <div className="basis-1/2">
           <h3 className="text-2xl font-bold">SELECT A PLAN</h3>
         </div>
         <div className="basis-1/2">
           <div className="flex items-center justify-end cursor-pointer">
-            <label htmlFor="toggle" className="cursor-pointer">
-              Pay yearly (Save 20%)
+            <label
+              htmlFor="toggle"
+              className="cursor-pointer md:mr-2 mr-[.125rem]"
+            >
+              Pay yearly <br className="md:hidden" /> (Save 20%)
             </label>
             <div
               onClick={toggleSwitch}
@@ -36,20 +39,20 @@ export const SelectAPlan = () => {
         </div>
       </div>
       <div className="w-full border border-[#c3cbcd] border-r-2">
-        <ul className="cursor-pointer">
-          <li className="py-2 font-bold hover:bg-[#dce4e4] pl-4">
+        <ul className="cursor-pointer md:flex">
+          <li className="py-2 md:py-6 font-bold md:basis-1/3 hover:bg-[#dce4e4] pl-4">
             PAY AS YOU GO
             <span className="block font-bold text-[#807777]">
               Free of charge
             </span>
           </li>
-          <li className="py-2 font-bold pl-4  hover:bg-[#dce4e4]">
+          <li className="py-2 md:py-6 font-bold md:basis-1/3 pl-4  hover:bg-[#dce4e4]">
             GROWTH
             <span className="block font-bold text-[#807777]">
               $350 every 6 mo.
             </span>
           </li>
-          <li className="py-2 font-bold pl-4  hover:bg-[#dce4e4]">
+          <li className="py-2 md:py-6 font-bold md:basis-1/3 pl-4  hover:bg-[#dce4e4]">
             ENTERPRISE
             <span className="block font-bold text-[#807777]">
               $1400 every 6 mo.
