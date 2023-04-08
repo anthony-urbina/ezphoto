@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { SelectAPlan, SelectImageTypes, Summary } from "@/components/elements";
+import {
+  SelectAPlan,
+  SelectImageTypes,
+  Summary,
+  BookShoot,
+} from "@/components/elements";
 
 export const PricingPage = () => {
   return (
@@ -12,6 +17,7 @@ export const PricingPage = () => {
         </div>
         <div className="basis-full lg:basis-1/2 lg:pl-6">
           <Summary />
+          <BookShoot />
         </div>
       </div>
     </>
