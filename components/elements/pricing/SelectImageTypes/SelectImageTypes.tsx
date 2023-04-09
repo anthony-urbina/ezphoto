@@ -15,7 +15,10 @@ export const SelectImageTypes = () => {
         <h3 className="text-2xl font-bold">SELECT IMAGE TYPES</h3>
       </div>
       <div className="border border-[#c3cbcd] border-r-2 flex flex-col">
-        <div className="flex items-center border-b border-[#c3cbcd] w-full justify-between px-4">
+        <div
+          data-type-id="0"
+          className="flex items-center border-b border-[#c3cbcd] w-full justify-between px-4"
+        >
           <div className="flex py-4 ">
             <input type="checkbox" id="standard" className="w-6 mr-2" />
             <label htmlFor="standard" className="text-[#807777]">
@@ -24,7 +27,10 @@ export const SelectImageTypes = () => {
           </div>
           <AiOutlineInfoCircle size={24} color="#ababab" />
         </div>
-        <div className="flex items-center border-b border-[#c3cbcd] w-full justify-between px-4">
+        <div
+          data-type-id="1"
+          className="flex items-center border-b border-[#c3cbcd] w-full justify-between px-4"
+        >
           <div className="flex py-4 ">
             <input type="checkbox" id="standard" className="w-6 mr-2" />
             <label htmlFor="standard" className="text-[#807777]">
@@ -33,7 +39,10 @@ export const SelectImageTypes = () => {
           </div>
           <AiOutlineInfoCircle size={24} color="#ababab" />
         </div>
-        <div className="flex items-center border-b border-[#c3cbcd] w-full justify-between px-4">
+        <div
+          data-type-id="2"
+          className="flex items-center border-b border-[#c3cbcd] w-full justify-between px-4"
+        >
           <div className="flex py-4 ">
             <input type="checkbox" id="standard" className="w-6 mr-2" />
             <label htmlFor="standard" className="text-[#807777]">
@@ -42,7 +51,10 @@ export const SelectImageTypes = () => {
           </div>
           <AiOutlineInfoCircle size={24} color="#ababab" />
         </div>
-        <div className="flex items-center border-b border-[#c3cbcd] w-full justify-between px-4">
+        <div
+          data-type-id="3"
+          className="flex items-center border-b border-[#c3cbcd] w-full justify-between px-4"
+        >
           <div className="flex py-4 ">
             <input type="checkbox" id="standard" className="w-6 mr-2" />
             <label htmlFor="standard" className="text-[#807777]">
@@ -51,7 +63,10 @@ export const SelectImageTypes = () => {
           </div>
           <AiOutlineInfoCircle size={24} color="#ababab" />
         </div>
-        <div className="flex items-center border-b border-[#c3cbcd] w-full justify-between px-4">
+        <div
+          data-type-id="4"
+          className="flex items-center border-b border-[#c3cbcd] w-full justify-between px-4"
+        >
           <div className="flex py-4 ">
             <input type="checkbox" id="standard" className="w-6 mr-2" />
             <label htmlFor="standard" className="text-[#807777]">
@@ -60,7 +75,10 @@ export const SelectImageTypes = () => {
           </div>
           <AiOutlineInfoCircle size={24} color="#ababab" />
         </div>
-        <div className="flex items-center justify-between w-full px-4">
+        <div
+          data-type-id="5"
+          className="flex items-center justify-between w-full px-4"
+        >
           <div className="flex py-4 ">
             <input type="checkbox" id="standard" className="w-6 mr-2" />
             <label htmlFor="standard" className="text-[#807777]">

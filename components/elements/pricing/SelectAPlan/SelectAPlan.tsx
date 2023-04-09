@@ -1,8 +1,12 @@
 import { useState } from "react";
 
-export const SelectAPlan = () => {
+interface SelectAPlan {
+  updatePlan: (selctedPlan: string) => void;
+  plan: string;
+}
+
+export const SelectAPlan = ({ updatePlan, plan }: SelectAPlan) => {
   const [isOn, setIsOn] = useState<boolean>(false);
-  const [selectedPlan, setSelectedPlan] = useState<string>("");
 
   const toggleSwitch = () => {
     console.log("switch is:", !isOn);
@@ -12,11 +16,15 @@ export const SelectAPlan = () => {
   const handleSelectPlan = (
     event: React.MouseEvent<HTMLUListElement, MouseEvent>
   ) => {
-    console.log(event.target);
     const target = event.target as HTMLInputElement;
-    const { planId } = target.dataset;
+    const li = target.closest("li");
+    if (!li) {
+      console.error("no li found");
+      return;
+    }
+    const { planId } = li.dataset;
     if (planId) {
-      setSelectedPlan(planId);
+      updatePlan(planId);
     }
   };
 
@@ -54,7 +62,9 @@ export const SelectAPlan = () => {
         <ul className="cursor-pointer md:flex" onClick={handleSelectPlan}>
           <li
             data-plan-id="1"
-            className="py-2 md:py-6 font-bold md:basis-1/3 hover:bg-[#dce4e4] pl-4"
+            className={`py-2 md:py-6 font-bold md:basis-1/3  pl-4 ${
+              plan === "1" ? "bg-[#dce4e4]" : "bg-white"
+            }`}
           >
             PAY AS YOU GO
             <span className="block font-bold text-[#807777]">
@@ -63,7 +73,9 @@ export const SelectAPlan = () => {
           </li>
           <li
             data-plan-id="2"
-            className="py-2 md:py-6 font-bold md:basis-1/3 pl-4  hover:bg-[#dce4e4]"
+            className={`py-2 md:py-6 font-bold md:basis-1/3 pl-4   ${
+              plan === "2" ? "bg-[#dce4e4]" : "bg-white"
+            }`}
           >
             GROWTH
             <span className="block font-bold text-[#807777]">
@@ -72,7 +84,9 @@ export const SelectAPlan = () => {
           </li>
           <li
             data-plan-id="3"
-            className="py-2 md:py-6 font-bold md:basis-1/3 pl-4  hover:bg-[#dce4e4]"
+            className={`py-2 md:py-6 font-bold md:basis-1/3 pl-4   ${
+              plan === "3" ? "bg-[#dce4e4]" : "bg-white"
+            }`}
           >
             ENTERPRISE
             <span className="block font-bold text-[#807777]">
