@@ -1,27 +1,27 @@
 import { useState } from "react";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { ImageTypes } from "../../../pages";
-import { usePrevious } from "../../../../custom-hooks";
-
+import { Stepper } from "../buttons";
 interface SelectImageTypesProps {
   updateTypes: (selectedTypes: ImageTypes) => void;
 }
 
 export const SelectImageTypes = ({ updateTypes }: SelectImageTypesProps) => {
-  const [isOn, setIsOn] = useState(false);
-  const [selectedType, setSelectedType] = useState<string>("");
-  const prevSelectedType = usePrevious(selectedType);
-
-  const toggleSwitch = () => {
-    console.log("switch is:", !isOn);
-
-    setIsOn(!isOn);
-  };
+  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+  const [stepperQuantity, setStepperQuantity] = useState<number>(1);
 
   const handleSelectType = (
     event: React.MouseEvent<HTMLUListElement, MouseEvent>
   ) => {
     const target = event.target as HTMLInputElement;
+    const div = target.closest("div");
+    if (!div) {
+      console.error("no dive found");
+      return;
+    }
+
+    if (div.dataset.type === "stepper") return;
+
     const li = target.closest("li");
     if (!li) {
       console.error("no li found");
@@ -29,18 +29,45 @@ export const SelectImageTypes = ({ updateTypes }: SelectImageTypesProps) => {
     }
     const { typeId } = li.dataset;
     console.log("typeId", typeId);
-    if (typeId) {
-      setSelectedType(typeId);
+
+    if (!typeId) {
+      console.error("li is missing type id");
+      return;
+    }
+
+    if (selectedTypes.includes(typeId)) {
+      const copySelectedTypes = [...selectedTypes];
+      for (let i = 0; i < copySelectedTypes.length; i++) {
+        if (copySelectedTypes[i] === typeId) {
+          copySelectedTypes.splice(i, 1);
+        }
+      }
+      setSelectedTypes(copySelectedTypes);
+    } else {
+      const copySelectedTypes = [...selectedTypes];
+      copySelectedTypes.push(typeId);
+      setSelectedTypes(copySelectedTypes);
     }
   };
 
-  const unhideQuantity = (type: string) => {
-    if (type === selectedType && selectedType !== prevSelectedType) {
-      console.log("prevSelectedType", prevSelectedType);
-      return <div>Desired Number of Images</div>;
-    } else {
-      return <div>no moew</div>;
+  const toggleStepper = (type: string) => {
+    if (selectedTypes.includes(type)) {
+      return (
+        <div>
+          <p>Desired Number of images</p>
+          <Stepper
+            quantity={stepperQuantity}
+            updateStepperQuantity={updateStepperQuantity}
+          />
+        </div>
+      );
     }
+  };
+
+  const updateStepperQuantity = (op: string) => {
+    if (op === "add") setStepperQuantity(stepperQuantity + 1);
+    if (op === "subtract" && stepperQuantity !== 0)
+      setStepperQuantity(stepperQuantity - 1);
   };
 
   return (
@@ -58,21 +85,31 @@ export const SelectImageTypes = ({ updateTypes }: SelectImageTypesProps) => {
         >
           <div className="flex items-center justify-between w-full">
             <div className="flex w-full py-4">
-              <input type="checkbox" id="standard" className="w-6 mr-2" />
+              <input
+                type="checkbox"
+                id="standard"
+                className="w-6 mr-2"
+                checked={selectedTypes.includes("0")}
+              />
               <label htmlFor="standard" className="text-[#807777]">
                 Paired
               </label>
             </div>
             <AiOutlineInfoCircle size={24} color="#ababab" />
           </div>
-          {unhideQuantity("0")}
+          {toggleStepper("0")}
         </li>
         <li
           data-type-id="1"
           className="flex items-center border-b border-[#c3cbcd] w-full justify-between px-4"
         >
           <div className="flex w-full py-4">
-            <input type="checkbox" id="standard" className="w-6 mr-2" />
+            <input
+              type="checkbox"
+              id="standard"
+              className="w-6 mr-2"
+              checked={selectedTypes.includes("1")}
+            />
             <label htmlFor="standard" className="text-[#807777]">
               Standard
             </label>
@@ -84,7 +121,12 @@ export const SelectImageTypes = ({ updateTypes }: SelectImageTypesProps) => {
           className="flex items-center border-b border-[#c3cbcd] w-full justify-between px-4"
         >
           <div className="flex w-full py-4">
-            <input type="checkbox" id="standard" className="w-6 mr-2" />
+            <input
+              type="checkbox"
+              id="standard"
+              className="w-6 mr-2"
+              checked={selectedTypes.includes("2")}
+            />
             <label htmlFor="standard" className="text-[#807777]">
               Group
             </label>
@@ -96,7 +138,12 @@ export const SelectImageTypes = ({ updateTypes }: SelectImageTypesProps) => {
           className="flex items-center border-b border-[#c3cbcd] w-full justify-between px-4"
         >
           <div className="flex w-full py-4">
-            <input type="checkbox" id="standard" className="w-6 mr-2" />
+            <input
+              type="checkbox"
+              id="standard"
+              className="w-6 mr-2"
+              checked={selectedTypes.includes("3")}
+            />
             <label htmlFor="standard" className="text-[#807777]">
               Ghost mannequin
             </label>
@@ -108,7 +155,12 @@ export const SelectImageTypes = ({ updateTypes }: SelectImageTypesProps) => {
           className="flex items-center border-b border-[#c3cbcd] w-full justify-between px-4"
         >
           <div className="flex w-full py-4">
-            <input type="checkbox" id="standard" className="w-6 mr-2" />
+            <input
+              type="checkbox"
+              id="standard"
+              className="w-6 mr-2"
+              checked={selectedTypes.includes("4")}
+            />
             <label htmlFor="standard" className="text-[#807777]">
               Jewelry / Watches
             </label>
@@ -120,7 +172,12 @@ export const SelectImageTypes = ({ updateTypes }: SelectImageTypesProps) => {
           className="flex items-center justify-between w-full px-4"
         >
           <div className="flex w-full py-4">
-            <input type="checkbox" id="standard" className="w-6 mr-2" />
+            <input
+              type="checkbox"
+              id="standard"
+              className="w-6 mr-2"
+              checked={selectedTypes.includes("5")}
+            />
             <label htmlFor="standard" className="text-[#807777]">
               Hand Model
             </label>
