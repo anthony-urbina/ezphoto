@@ -6,7 +6,7 @@ export const Stepper = ({ quantity, updateStepperQuantity }: StepperProps) => {
   return (
     <div
       data-type="stepper"
-      className="flex text-xl font-bold border border-black"
+      className="flex mt-4 mb-6 text-xl font-bold border border-black"
     >
       <button
         className="px-5 py-3 border-r border-black hover:bg-[#c9c3c3]"
