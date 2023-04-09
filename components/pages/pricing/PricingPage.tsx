@@ -12,14 +12,19 @@ interface Cart {
 }
 
 export interface ImageTypes {
-  [key: string]: string;
+  [key: string]: number;
 }
 
 export const PricingPage = () => {
   const [cart, setCart] = useState<Cart>({
     plan: "1",
     types: {
-      "1": "hi",
+      0: 0,
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
     },
   });
 
@@ -30,11 +35,11 @@ export const PricingPage = () => {
   };
 
   const updateTypes = (selectedTypes: ImageTypes) => {
+    const copyCart = { ...cart };
     for (const key in selectedTypes) {
-      if (selectedTypes.hasOwnProperty(key)) {
-        console.log("property exists in cart.types:", key);
-      }
+      copyCart.types[key] = selectedTypes[key];
     }
+    setCart(copyCart);
   };
 
   const { plan } = cart;
@@ -44,7 +49,7 @@ export const PricingPage = () => {
       <div className="flex flex-wrap">
         <div className="md:pr-6 basis-full lg:basis-1/2">
           <SelectAPlan updatePlan={updatePlan} plan={plan} />
-          <SelectImageTypes updateTypes={updateTypes} />
+          <SelectImageTypes updateTypes={updateTypes} types={cart.types} />
         </div>
         <div className="basis-full lg:basis-1/2 lg:pl-6">
           <Summary />

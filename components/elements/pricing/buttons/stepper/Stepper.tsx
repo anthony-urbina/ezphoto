@@ -1,8 +1,13 @@
 interface StepperProps {
   quantity: number;
-  updateStepperQuantity: (op: string) => void;
+  updateStepperQuantity: (op: string, type: string) => void;
+  type: string;
 }
-export const Stepper = ({ quantity, updateStepperQuantity }: StepperProps) => {
+export const Stepper = ({
+  quantity,
+  updateStepperQuantity,
+  type,
+}: StepperProps) => {
   return (
     <div
       data-type="stepper"
@@ -10,7 +15,7 @@ export const Stepper = ({ quantity, updateStepperQuantity }: StepperProps) => {
     >
       <button
         className="px-5 py-3 border-r border-black hover:bg-[#c9c3c3]"
-        onClick={() => updateStepperQuantity("subtract")}
+        onClick={() => updateStepperQuantity("subtract", type)}
       >
         -
       </button>
@@ -19,7 +24,7 @@ export const Stepper = ({ quantity, updateStepperQuantity }: StepperProps) => {
       </button>
       <button
         className="px-5 py-3 border-l border-black hover:bg-[#c9c3c3]"
-        onClick={() => updateStepperQuantity("add")}
+        onClick={() => updateStepperQuantity("add", type)}
       >
         +
       </button>

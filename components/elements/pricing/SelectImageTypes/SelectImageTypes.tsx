@@ -4,19 +4,30 @@ import { ImageTypes } from "../../../pages";
 import { Stepper } from "../buttons";
 interface SelectImageTypesProps {
   updateTypes: (selectedTypes: ImageTypes) => void;
+  types: ImageTypes;
 }
 
-export const SelectImageTypes = ({ updateTypes }: SelectImageTypesProps) => {
+export const SelectImageTypes = ({
+  updateTypes,
+  types,
+}: SelectImageTypesProps) => {
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
-  const [stepperQuantity, setStepperQuantity] = useState<number>(1);
-
+  // const [stepperQuantity, setStepperQuantity] = useState<number>(1);
+  const imageTypes = [
+    "Standard",
+    "Paired",
+    "Group",
+    "Ghost mannequin",
+    "Jewlery / Watches",
+    "Hand model",
+  ];
   const handleSelectType = (
     event: React.MouseEvent<HTMLUListElement, MouseEvent>
   ) => {
     const target = event.target as HTMLInputElement;
     const div = target.closest("div");
     if (!div) {
-      console.error("no dive found");
+      console.error("no div found");
       return;
     }
 
@@ -28,7 +39,6 @@ export const SelectImageTypes = ({ updateTypes }: SelectImageTypesProps) => {
       return;
     }
     const { typeId } = li.dataset;
-    console.log("typeId", typeId);
 
     if (!typeId) {
       console.error("li is missing type id");
@@ -56,7 +66,8 @@ export const SelectImageTypes = ({ updateTypes }: SelectImageTypesProps) => {
         <div>
           <p>Desired Number of images</p>
           <Stepper
-            quantity={stepperQuantity}
+            quantity={types[type]}
+            type={type}
             updateStepperQuantity={updateStepperQuantity}
           />
         </div>
@@ -64,10 +75,42 @@ export const SelectImageTypes = ({ updateTypes }: SelectImageTypesProps) => {
     }
   };
 
-  const updateStepperQuantity = (op: string) => {
-    if (op === "add") setStepperQuantity(stepperQuantity + 1);
-    if (op === "subtract" && stepperQuantity !== 0)
-      setStepperQuantity(stepperQuantity - 1);
+  const updateStepperQuantity = (op: string, type: string) => {
+    if (op === "add") updateTypes({ [type]: types[type] + 1 });
+    if (op === "subtract" && types[type] !== 0)
+      updateTypes({ [type]: types[type] - 1 });
+  };
+
+  const liFactory = (types: ImageTypes) => {
+    const liList = Object.entries(types).map((type, index) => {
+      const [id, quantity] = type;
+      return (
+        <li
+          key={id}
+          data-type-id={id.toString()}
+          className={`flex items-center  px-4 flex-wrap ${
+            index === imageTypes.length - 1 ? "" : "border-b border-[#c3cbcd]"
+          }`}
+        >
+          <div className="flex items-center justify-between w-full">
+            <div className="flex w-full py-4">
+              <input
+                type="checkbox"
+                id="standard"
+                className="w-6 mr-2"
+                checked={selectedTypes.includes(id.toString())}
+              />
+              <label htmlFor="standard" className="text-[#807777]">
+                {imageTypes[Number(id)]}
+              </label>
+            </div>
+            <AiOutlineInfoCircle size={24} color="#ababab" />
+          </div>
+          {toggleStepper(id.toString())}
+        </li>
+      );
+    });
+    return liList;
   };
 
   return (
@@ -79,126 +122,7 @@ export const SelectImageTypes = ({ updateTypes }: SelectImageTypesProps) => {
         className="border border-[#c3cbcd] border-r-2 flex flex-col cursor-pointer"
         onClick={handleSelectType}
       >
-        <li
-          data-type-id="0"
-          className="flex items-center border-b border-[#c3cbcd] px-4 flex-wrap"
-        >
-          <div className="flex items-center justify-between w-full">
-            <div className="flex w-full py-4">
-              <input
-                type="checkbox"
-                id="standard"
-                className="w-6 mr-2"
-                checked={selectedTypes.includes("0")}
-              />
-              <label htmlFor="standard" className="text-[#807777]">
-                Paired
-              </label>
-            </div>
-            <AiOutlineInfoCircle size={24} color="#ababab" />
-          </div>
-          {toggleStepper("0")}
-        </li>
-        <li
-          data-type-id="1"
-          className="flex items-center border-b border-[#c3cbcd] px-4 flex-wrap"
-        >
-          <div className="flex items-center justify-between w-full">
-            <div className="flex w-full py-4">
-              <input
-                type="checkbox"
-                id="standard"
-                className="w-6 mr-2"
-                checked={selectedTypes.includes("1")}
-              />
-              <label htmlFor="standard" className="text-[#807777]">
-                Standard
-              </label>
-            </div>
-            <AiOutlineInfoCircle size={24} color="#ababab" />
-          </div>
-          {toggleStepper("1")}
-        </li>
-        <li
-          data-type-id="2"
-          className="flex items-center border-b border-[#c3cbcd] px-4 flex-wrap"
-        >
-          <div className="flex items-center justify-between w-full">
-            <div className="flex w-full py-4">
-              <input
-                type="checkbox"
-                id="standard"
-                className="w-6 mr-2"
-                checked={selectedTypes.includes("2")}
-              />
-              <label htmlFor="standard" className="text-[#807777]">
-                Group
-              </label>
-            </div>
-            <AiOutlineInfoCircle size={24} color="#ababab" />
-          </div>
-          {toggleStepper("2")}
-        </li>
-        <li
-          data-type-id="3"
-          className="flex items-center border-b border-[#c3cbcd] px-4 flex-wrap"
-        >
-          <div className="flex items-center justify-between w-full">
-            <div className="flex w-full py-4">
-              <input
-                type="checkbox"
-                id="standard"
-                className="w-6 mr-2"
-                checked={selectedTypes.includes("3")}
-              />
-              <label htmlFor="standard" className="text-[#807777]">
-                Ghost mannequin
-              </label>
-            </div>
-            <AiOutlineInfoCircle size={24} color="#ababab" />
-          </div>
-          {toggleStepper("3")}
-        </li>
-        <li
-          data-type-id="4"
-          className="flex items-center border-b border-[#c3cbcd] px-4 flex-wrap"
-        >
-          <div className="flex items-center justify-between w-full">
-            <div className="flex w-full py-4">
-              <input
-                type="checkbox"
-                id="standard"
-                className="w-6 mr-2"
-                checked={selectedTypes.includes("4")}
-              />
-              <label htmlFor="standard" className="text-[#807777]">
-                Jewelry / Watches
-              </label>
-            </div>
-            <AiOutlineInfoCircle size={24} color="#ababab" />
-          </div>
-          {toggleStepper("4")}
-        </li>
-        <li
-          data-type-id="5"
-          className="flex flex-wrap items-center justify-between w-full px-4"
-        >
-          <div className="flex items-center justify-between w-full ">
-            <div className="flex w-full py-4">
-              <input
-                type="checkbox"
-                id="standard"
-                className="w-6 mr-2"
-                checked={selectedTypes.includes("5")}
-              />
-              <label htmlFor="standard" className="text-[#807777]">
-                Hand Model
-              </label>
-            </div>
-            <AiOutlineInfoCircle size={24} color="#ababab" />
-          </div>
-          {toggleStepper("5")}
-        </li>
+        {liFactory(types)}
       </ul>
     </div>
   );
