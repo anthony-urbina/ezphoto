@@ -8,13 +8,19 @@ import { useState } from "react";
 
 interface Cart {
   plan: string;
-  types: string;
+  types: ImageTypes;
+}
+
+export interface ImageTypes {
+  [key: string]: string;
 }
 
 export const PricingPage = () => {
   const [cart, setCart] = useState<Cart>({
     plan: "1",
-    types: "",
+    types: {
+      "1": "hi",
+    },
   });
 
   const updatePlan = (selectedPlan: string) => {
@@ -23,7 +29,13 @@ export const PricingPage = () => {
     setCart(copyCart);
   };
 
-  const updateTypes = () => {};
+  const updateTypes = (selectedTypes: ImageTypes) => {
+    for (const key in selectedTypes) {
+      if (selectedTypes.hasOwnProperty(key)) {
+        console.log("property exists in cart.types:", key);
+      }
+    }
+  };
 
   const { plan } = cart;
   return (
@@ -32,7 +44,7 @@ export const PricingPage = () => {
       <div className="flex flex-wrap">
         <div className="md:pr-6 basis-full lg:basis-1/2">
           <SelectAPlan updatePlan={updatePlan} plan={plan} />
-          <SelectImageTypes />
+          <SelectImageTypes updateTypes={updateTypes} />
         </div>
         <div className="basis-full lg:basis-1/2 lg:pl-6">
           <Summary />
