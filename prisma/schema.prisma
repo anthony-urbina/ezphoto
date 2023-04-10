@@ -8,6 +8,77 @@ generator client {
   provider        = "prisma-client-js"
 }
 
+// Define the User model
+model User {
+  id               String     @id @default(cuid())
+  firstName        String
+  lastName         String
+  email            String    @unique
+  password         String
+  billingAddress   String?
+  shippingAddress  String?
+  emailVerified    DateTime?
+  image            String?
+  accounts         Account[]
+  sessions         Session[]
+  membershipPurchases MembershipPurchase[]
+  orders           Order[]
+}
+
+// Define the Membership model
+model Membership {
+  id                  Int       @id @default(autoincrement())
+  name                String
+  description         String
+  price               Int
+  membershipPurchases MembershipPurchase[]
+  orders              Order[]
+}
+
+// Define the MembershipPurchase model
+model MembershipPurchase {
+  id             Int       @id @default(autoincrement())
+  purchaseDate   DateTime  @default(now())
+  expirationDate DateTime
+  user           User      @relation(fields: [userId], references: [id])
+  userId         String
+  membership     Membership @relation(fields: [membershipId], references: [id])
+  membershipId   Int
+}
+
+// Define the Order model
+model Order {
+  id             Int       @id @default(autoincrement())
+  orderDate      DateTime  @default(now())
+  totalAmount    Int
+  paymentStatus  String
+  membership     Membership? @relation(fields: [membershipId], references: [id])
+  membershipId   Int?
+  user           User      @relation(fields: [userId], references: [id])
+  userId         String
+  orderItems     OrderItem[]
+}
+
+// Define the Product model
+model Product {
+  id              Int       @id @default(autoincrement())
+  name            String
+  description     String
+  price           Int
+  photoUrl        String
+  orderItems      OrderItem[]
+}
+
+// Define the OrderItem model
+model OrderItem {
+  id             Int       @id @default(autoincrement())
+  quantity       Int
+  order          Order     @relation(fields: [orderId], references: [id])
+  orderId        Int
+  product        Product   @relation(fields: [productId], references: [id])
+  productId      Int
+}
+
 model Account {
   id                 String  @id @default(cuid())
   userId             String
@@ -33,16 +104,6 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
 }
 
 model VerificationToken {
